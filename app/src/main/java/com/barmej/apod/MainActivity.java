@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         photoDescription = findViewById(R.id.photo_description);
         photo_title = findViewById(R.id.photo_title);
         touchImageView = findViewById(R.id.img_picture_view);
@@ -227,32 +228,14 @@ public class MainActivity extends AppCompatActivity {
 
     // مشاركة الوصائط
     private void shareImage() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
         if (responseInfo.getMediaType().equals(IMAGE)) {
-
-            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-            StrictMode.setVmPolicy(builder.build());
-
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) touchImageView.getDrawable();
-            Bitmap bitmap = bitmapDrawable.getBitmap();
-            File file = new File(getExternalCacheDir() + "/" + "Share image" + ".png");
-            Intent intent;
-            try {
-                FileOutputStream outputStream = new FileOutputStream(file);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-                outputStream.flush();
-                outputStream.close();
-
-                intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("image/*");
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, responseInfo.getHdurl());
             startActivity(Intent.createChooser(intent, "Share image via: "));
+
             // Share video url
         } else {
-            Intent intent = new Intent(Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_TEXT, responseInfo.getUrl());
             intent.setType("text/plain");
             startActivity(intent);
@@ -268,20 +251,9 @@ public class MainActivity extends AppCompatActivity {
         // create the popup window
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = true;
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height);
-
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
         // show the popup window
         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
-        // dismiss the popup window when touched
-        popupView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                popupWindow.dismiss();
-                return true;
-            }
-        });
-
     }
 
    // فحص اتجاه الشاشة
@@ -322,7 +294,6 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
-
 
     @Override
     protected void onStop() {
