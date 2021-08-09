@@ -6,6 +6,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ResponseDataParser {
+    private static final String IMAGE = "image";
+
     // title of Picture
     private static final String OWM_title = "title";
     // Description of te picture
@@ -26,8 +28,12 @@ public class ResponseDataParser {
         responseInfo.setTitle(jsonObject.getString(OWM_title));
         responseInfo.setExplanation(jsonObject.getString(OWM_Explanation));
         responseInfo.setUrl(jsonObject.getString((OWM_Url)));
-        responseInfo.setHdurl(jsonObject.getString(OWM_HDurl));
         responseInfo.setMediaType(jsonObject.getString(OWM_MediaType));
+
+         String mediaType = jsonObject.getString(OWM_MediaType);
+         if (mediaType.equals(IMAGE)){
+             responseInfo.setHdurl(jsonObject.getString(OWM_HDurl));
+         }
 
         return responseInfo;
     }

@@ -46,6 +46,7 @@ import com.barmej.apod.fragments.DatePickerFragment;
 import com.barmej.apod.network.NetworkUtils;
 import com.barmej.apod.utils.ResponseDataParser;
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.ortiz.touchview.TouchImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -62,6 +63,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     private static final String IMAGE = "image";
     private static final String REQUEST_TAG = "RequestTag";
+    LinearLayout bottomSheetLayout;
     TextView photoDescription;
     TextView photo_title;
     TouchImageView touchImageView;
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         photoDescription = findViewById(R.id.photo_description);
         photo_title = findViewById(R.id.photo_title);
+        bottomSheetLayout= findViewById(R.id.bottom_sheet);
         touchImageView = findViewById(R.id.img_picture_view);
         webView = findViewById(R.id.wv_video_player);
         progressBar = findViewById(R.id.progressBar);
@@ -128,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 try {
+                    Log.d("TTT","Response: "+response);
+
                     responseInfo = ResponseDataParser.getResponseInfoFromJson(response);
                     photoDescription.setText(responseInfo.getExplanation());
                     photo_title.setText(responseInfo.getTitle());
@@ -167,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
             Glide.with(this).load(responseInfo.getUrl()).into(touchImageView);
         } else {
             webView.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.VISIBLE);
+            //progressBar.setVisibility(View.VISIBLE);
             touchImageView.setVisibility(View.GONE);
             // set video
             webView.setWebViewClient(new WebViewClient());
@@ -265,8 +270,10 @@ public class MainActivity extends AppCompatActivity {
         // Checks the orientation of the screen
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             hideSystemUI();
+            bottomSheetLayout.setVisibility(View.GONE);
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             showSystemUI();
+            bottomSheetLayout.setVisibility(View.VISIBLE);
         }
     }
 
