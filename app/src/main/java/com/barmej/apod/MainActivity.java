@@ -3,6 +3,7 @@ package com.barmej.apod;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DownloadManager;
@@ -235,9 +236,13 @@ public class MainActivity extends AppCompatActivity {
     private void shareImage() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         if (responseInfo.getMediaType().equals(IMAGE)) {
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, responseInfo.getHdurl());
-            startActivity(Intent.createChooser(intent, "Share image via: "));
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) touchImageView.getDrawable();
+            Bitmap bitmap = bitmapDrawable.getBitmap();
+            Uri uri = getImageToShare(bitmap);
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
+            intent.putExtra(Intent.EXTRA_TEXT, responseInfo.getTitle());
+            intent.setType("image/png");
+            startActivity(Intent.createChooser(intent, "Share Via"));
 
             // Share video url
         } else {
@@ -245,6 +250,23 @@ public class MainActivity extends AppCompatActivity {
             intent.setType("text/plain");
             startActivity(intent);
         }
+    }
+    // Retrieving the url to share
+    private Uri getImageToShare(Bitmap bitmap) {
+        File imagefolder = new File(getCacheDir(), "images");
+        Uri uri = null;
+        try {
+            imagefolder.mkdirs();
+            File file = new File(imagefolder, "shared_image.png");
+            FileOutputStream outputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, outputStream);
+            outputStream.flush();
+            outputStream.close();
+            uri = FileProvider.getUriForFile(this, "com.barmej.apod.fileprovider", file);
+        } catch (Exception e) {
+            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return uri;
     }
 
     // عن التطبيق
