@@ -1,38 +1,29 @@
-# <div dir="rtl">نبذة عن المشروع</div>
-<div dir="rtl">
-يعد علم الفلك والفضاء الخارجي من العلوم التي تستهوي الكثيرين حيث أن هناك الكثير من الناس ممن يحبون تعلم واستكشاف الجديد في هذا العلم.
-كما لا يكاد يختلف شخصان على جمال وروعة تلك الصور الجذابة للكواكب والمجرات والنجوم والتي تدعونا إلى التفكر في بديع هذا الكون.
+# Project Overview
 
- سوف نقوم بإستخدام Web APIs تقدمها وكالة الفضاء الدولية المعروفة بإسم NASA حيث توفر لنا هذه الـ APIs صورة جديدة كل يوم إضافة إلى وصف للصورة ومعلومات عنها، وبإمكاننا من خلالها الوصول إلى الصور التي تم نشرها في الماضي من خلال تحديد تاريخ اليوم.
+Astronomy and outer space are sciences that fascinate many people, as there are many who love to learn and explore the secrets of the universe. Also, almost everyone agrees on the beauty and magnificence of those captivating images of planets, galaxies, and stars, which invite us to contemplate the greatness of creation.
 
-يمكنك الإطلاع على المستند الخاص بالـ API وشرحها على موقع NASA من خلال زيارة الرابط التالي
-<a href="https://api.nasa.gov">https://api.nasa.gov</a>
+We will use Web APIs provided by the internationally known space agency NASA, which offers us a new image every day through these APIs.
 
-ملاحظة: يجب التسجيل في الموقع للحصول على الـ API Key الخاص بك حتى تتمكن من استخدام الـ APIs الخاصة بوكالة NASA
+You can view the API documentation and its explanation on NASA's website by visiting the following link:
+https://api.nasa.gov
 
-</div>
+Note: You must register on the site to obtain your own API Key in order to use NASA's APIs.
 
+---
 
+# Project Interfaces
 
-
-# <div dir="rtl">واجهات المشروع</div>
-
-<div dir="rtl">
-
-<h3>الشاشة الرئيسية - عرض صورة</h3>
+### Main Screen - Image Display
 <img src="screenshots/Screenshot_1559536577.png" heigth="480" width="270"/>
 
-<h3>الشاشة الرئيسية - عرض فيديو</h3>
+### Main Screen - Video Display
 <img src="screenshots/Screenshot_1559536642.png" heigth="480" width="270"/>
 
-<h3>الشاشة الرئيسية - عرض معلومات عن الصورة/الفيديو</h3>
+### Main Screen - Displaying Information about the Image/Video
 <img src="screenshots/Screenshot_1559536581.png" heigth="480" width="270"/>
 
-<h3>تحديد التاريخ</h3>
+### Date Selection
 <img src="screenshots/Screenshot_1559536609.png" heigth="480" width="270"/>
 
-<h3>قائمة الخيارات</h3>
+### Options Menu
 <img src="screenshots/Screenshot_1559592694.png" heigth="480" width="270"/>
-
-</div>
-
